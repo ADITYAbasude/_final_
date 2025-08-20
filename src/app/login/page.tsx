@@ -37,6 +37,7 @@ export default function LoginPage() {
           description: 'Redirecting to dashboard...',
         });
         setCookie('auth-token', 'dummy-auth-token', 1); // Set a dummy auth token
+        router.refresh();
         router.push('/');
       } else {
         toast({
@@ -44,8 +45,8 @@ export default function LoginPage() {
           title: 'Login Failed',
           description: 'Invalid password.',
         });
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }, 1000);
   };
 
