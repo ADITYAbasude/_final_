@@ -1,52 +1,34 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Video } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-
-function setCookie(name: string, value: string, days: number) {
-  let expires = "";
-  if (days) {
-    const date = new Date();
-    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-    expires = "; expires=" + date.toUTCString();
-  }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
-}
+import { login } from '@/app/actions';
 
 export default function LoginPage() {
-  const router = useRouter();
   const { toast } = useToast();
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      if (password === 'admin123') {
-        toast({
-          title: 'Login Successful',
-          description: 'Redirecting to dashboard...',
-        });
-        setCookie('auth-token', 'dummy-auth-token', 1); // Set a dummy auth token
-        window.location.href = '/'; // Force a full page reload to ensure middleware catches the cookie
-      } else {
-        toast({
-          variant: 'destructive',
-          title: 'Login Failed',
-          description: 'Invalid password.',
-        });
-        setIsLoading(false);
-      }
-    }, 1000);
+    const result = await login(password);
+
+    if (result?.success === false) {
+       toast({
+        variant: 'destructive',
+        title: 'Login Failed',
+        description: result.message,
+      });
+      setIsLoading(false);
+    }
+    // On success, the server action will redirect, so no client-side navigation is needed.
   };
 
   return (

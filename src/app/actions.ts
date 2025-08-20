@@ -2,6 +2,23 @@
 
 import { applyAIFilters, type ApplyAIFiltersInput } from '@/ai/flows/apply-ai-filters';
 import { revalidatePath } from 'next/cache';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+
+export async function login(password: string) {
+  if (password === 'admin123') {
+    cookies().set('auth-token', 'dummy-auth-token', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 60 * 60 * 24, // 1 day
+      path: '/',
+    });
+    redirect('/');
+  } else {
+    return { success: false, message: 'Invalid password.' };
+  }
+}
+
 
 export async function updateCameraFilters(data: ApplyAIFiltersInput) {
   try {
