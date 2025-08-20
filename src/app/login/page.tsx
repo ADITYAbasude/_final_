@@ -37,8 +37,7 @@ export default function LoginPage() {
           description: 'Redirecting to dashboard...',
         });
         setCookie('auth-token', 'dummy-auth-token', 1); // Set a dummy auth token
-        router.push('/');
-        // No need to set isLoading to false here, as the page will redirect.
+        window.location.href = '/'; // Force a full page reload to ensure middleware catches the cookie
       } else {
         toast({
           variant: 'destructive',
