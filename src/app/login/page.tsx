@@ -6,12 +6,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Video, ShieldAlert } from 'lucide-react';
+import { Video } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+
+function setCookie(name: string, value: string, days: number) {
+  let expires = "";
+  if (days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "") + expires + "; path=/";
+}
 
 export default function LoginPage() {
   const router = useRouter();
-  const { toast } = useToast();
+  const { toast } = use-toast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,6 +37,7 @@ export default function LoginPage() {
           title: 'Login Successful',
           description: 'Redirecting to dashboard...',
         });
+        setCookie('auth-token', 'dummy-auth-token', 1); // Set a dummy auth token
         router.push('/');
       } else {
         toast({
