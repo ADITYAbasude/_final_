@@ -37,8 +37,8 @@ export default function LoginPage() {
           description: 'Redirecting to dashboard...',
         });
         setCookie('auth-token', 'dummy-auth-token', 1); // Set a dummy auth token
-        router.refresh();
         router.push('/');
+        // No need to set isLoading to false here, as the page will redirect.
       } else {
         toast({
           variant: 'destructive',
