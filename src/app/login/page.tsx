@@ -21,7 +21,7 @@ function setCookie(name: string, value: string, days: number) {
 
 export default function LoginPage() {
   const router = useRouter();
-  const { toast } = use-toast();
+  const { toast } = useToast();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
