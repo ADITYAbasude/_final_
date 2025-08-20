@@ -22,7 +22,6 @@ function setCookie(name: string, value: string, days: number) {
 export default function LoginPage() {
   const router = useRouter();
   const { toast } = useToast();
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +31,7 @@ export default function LoginPage() {
 
     // Simulate API call
     setTimeout(() => {
-      if (email === 'admin@cctv.com' && password === 'teesmaarkhan') {
+      if (password === 'admin123') {
         toast({
           title: 'Login Successful',
           description: 'Redirecting to dashboard...',
@@ -43,7 +42,7 @@ export default function LoginPage() {
         toast({
           variant: 'destructive',
           title: 'Login Failed',
-          description: 'Invalid email or password.',
+          description: 'Invalid password.',
         });
       }
       setIsLoading(false);
@@ -62,18 +61,6 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="admin@cctv.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={isLoading}
-              />
-            </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
               <Input
