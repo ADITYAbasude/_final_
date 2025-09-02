@@ -12,6 +12,7 @@ interface CameraCardProps {
 }
 
 export default function CameraCard({ camera, onConfigure }: CameraCardProps) {
+  console.log('Rendering CameraCard for:', camera);
   return (
     <Card className="flex flex-col">
       <CardHeader>
@@ -20,11 +21,8 @@ export default function CameraCard({ camera, onConfigure }: CameraCardProps) {
       </CardHeader>
       <CardContent className="flex-grow">
         <div className="relative aspect-video w-full overflow-hidden rounded-md bg-secondary shadow-inner">
-          <Image 
+          <img 
             src={camera.streamUrl} 
-            alt={`Feed from ${camera.name}`} 
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             className="object-cover"
             data-ai-hint="cctv security"
           />

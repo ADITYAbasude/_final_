@@ -5,7 +5,7 @@ export const cameras: Camera[] = [
     id: 'cam-001',
     name: 'VIP Room 101',
     location: 'Private Rooms',
-    streamUrl: 'https://placehold.co/1280x720.png',
+    streamUrl: 'http://192.168.0.119:8080/video',
     enabledModels: ['FaceRecognition', 'SoundAnomalyDetection'],
     aiHint: { model: 'FaceRecognition', text: 'Recognized: Dr. Evans' },
   },
